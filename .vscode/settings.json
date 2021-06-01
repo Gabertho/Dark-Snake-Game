@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "memory": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "typeinfo": "cpp"
     }
 }
