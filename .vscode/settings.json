@@ -2,6 +2,7 @@
     "files.associations": {
         "memory": "cpp",
         "stack": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "*.tcc": "cpp"
     }
 }

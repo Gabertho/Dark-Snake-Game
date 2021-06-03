@@ -9,7 +9,7 @@ namespace Engine {
         private:
             /* data */
         public:
-            State();
+            State(){};
             virtual ~State(){};
 
             //Métodos virtuais puros(são obigados a serem redefinidos para cada estado.)
