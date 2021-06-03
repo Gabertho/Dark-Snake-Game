@@ -9,7 +9,7 @@ LIB		:= lib
 LIBRARIES	:= -lsfml-graphics -lsfml-window -lsfml-system
 EXECUTABLE	:= main
 
-
+	
 all: $(BIN)/$(EXECUTABLE)
 
 run: clean all
