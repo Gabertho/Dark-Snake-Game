@@ -16,9 +16,27 @@ void GamePlay::Init()
     m_context->m_assets->AddTexture(FOOD, "/home/gabriel/Downloads/Projeto AED1 git/ProjetoAED1/assets/textures/food.png");
     m_context->m_assets->AddTexture(WALL, "/home/gabriel/Downloads/Projeto AED1 git/ProjetoAED1/assets/textures/wall.png", true);
     m_context->m_assets->AddTexture(SNAKE, "/home/gabriel/Downloads/Projeto AED1 git/ProjetoAED1/assets/textures/snake.png");
-
+m_context->m_window->getSize().y, 
     m_grass.setTexture(m_context->m_assets->GetTexture(GRASS));
     m_grass.setTextureRect(m_context->m_window->getViewport(m_context->m_window->getDefaultView()));
+
+    for(auto& wall : m_walls)
+    {
+        wall.setTexture(m_context->m_assets->GetTexture(WALL));
+
+    }
+
+    m_walls[0].setTextureRect({0, 0, m_context->m_window->getSize().x, 16}); // o que mostra
+    m_walls[1].setTextureRect({0, 0, m_context->m_window->getSize().x, 16});
+    m_walls[1].setPosition(0, m_context->m_window->getSize().y - 16); //onde mostra 
+
+    m_walls[2].setTextureRect({0, 0, 16, m_context->m_window->getSize().y});
+    m_walls[3].setTextureRect({0, 0, 16, m_context->m_window->getSize().y});
+    m_walls[1].setPosition(m_context->m_window->getSize().x- 16, 0);
+
+    m_food.setTexture(m_context->m_assets->GetTexture(FOOD));
+    m_food.setPosition(m_context->m_window->getSize().x/2, m_context->m_window->getSize().y/2);
+
 }
 
 void GamePlay::ProcessInput()
@@ -41,6 +59,14 @@ void GamePlay::Draw()
 {
     m_context->m_window->clear();
     m_context->m_window->draw(m_grass);
+
+    for(auto& wall: m_walls)
+    {
+        m_context->m_window->draw(wall);
+    }
+
+    m_context->m_window->draw(m_food);
+
     m_context->m_window->display();
 }
 void GamePlay::Pause()
