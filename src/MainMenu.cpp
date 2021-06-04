@@ -1,4 +1,5 @@
 #include "MainMenu.hpp"
+#include "GamePlay.hpp"
 
 #include <SFML/Window/Event.hpp>
 
@@ -52,11 +53,11 @@ void MainMenu::ProcessInput()
             {
                 if (!m_isPlayButtonSelected)
                 {
-                    m_isPlayButtonSelected = true;
+                     m_isPlayButtonSelected = true;
+            }
                     m_isExitButtonSelected = false;
                 }
                 break;
-            }
             case sf::Keyboard::Down:
             {
                 if (!m_isExitButtonSelected)
@@ -107,12 +108,14 @@ void MainMenu::Update(sf::Time deltaTime)
     if(m_isPlayButtonPressed)
     {
         // go to play state
+        m_context->m_states->Add(std::make_unique<GamePlay>(m_context), true);
     }
     else if (m_isExitButtonPressed) 
     {
         m_context->m_window->close();
     }
 }
+
 void MainMenu::Draw()
 {
     m_context->m_window->clear(sf::Color::Blue);
