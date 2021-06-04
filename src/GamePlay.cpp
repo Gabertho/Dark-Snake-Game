@@ -32,7 +32,7 @@ m_context->m_window->getSize().y,
 
     m_walls[2].setTextureRect({0, 0, 16, m_context->m_window->getSize().y});
     m_walls[3].setTextureRect({0, 0, 16, m_context->m_window->getSize().y});
-    m_walls[1].setPosition(m_context->m_window->getSize().x- 16, 0);
+    m_walls[3].setPosition(m_context->m_window->getSize().x- 16, 0);
 
     m_food.setTexture(m_context->m_assets->GetTexture(FOOD));
     m_food.setPosition(m_context->m_window->getSize().x/2, m_context->m_window->getSize().y/2);
