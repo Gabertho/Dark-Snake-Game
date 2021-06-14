@@ -1,42 +1,45 @@
 #include "GameOver.hpp"
 #include "GamePlay.hpp"
+
 #include <SFML/Window/Event.hpp>
 
 GameOver::GameOver(std::shared_ptr<Context> &context)
-    : m_context(context), m_isRetryButtonSelected(true), m_isRetryButtonPressed(false), m_isExitButtonPressed(false), m_isExitButtonSelected(false)
+    : m_context(context), m_isRetryButtonSelected(true),
+      m_isRetryButtonPressed(false), m_isExitButtonSelected(false),
+      m_isExitButtonPressed(false)
 {
 }
 
-GameOver::~GameOver() {
-
+GameOver::~GameOver()
+{
 }
-
-#include "MainMenu.hpp"
-#include "GamePlay.hpp"
-
-#include <SFML/Window/Event.hpp>
-
 
 void GameOver::Init()
 {
-    //Title
+    // Title
     m_gameOverTitle.setFont(m_context->m_assets->GetFont(MAIN_FONT));
     m_gameOverTitle.setString("Game Over");
-    m_gameOverTitle.setOrigin(m_gameOverTitle.getLocalBounds().width / 2, m_gameOverTitle.getLocalBounds().height / 2);
-    m_gameOverTitle.setPosition(m_context->m_window->getSize().x / 2, m_context->m_window->getSize().y / 2 - 150.f);
+    m_gameOverTitle.setOrigin(m_gameOverTitle.getLocalBounds().width / 2,
+                              m_gameOverTitle.getLocalBounds().height / 2);
+    m_gameOverTitle.setPosition(m_context->m_window->getSize().x / 2,
+                                m_context->m_window->getSize().y / 2 - 150.f);
 
-    //Play button
+    // Play Button
     m_retryButton.setFont(m_context->m_assets->GetFont(MAIN_FONT));
     m_retryButton.setString("Retry");
-    m_retryButton.setOrigin(m_retryButton.getLocalBounds().width / 2, m_retryButton.getLocalBounds().height / 2);
-    m_retryButton.setPosition(m_context->m_window->getSize().x / 2, m_context->m_window->getSize().y / 2 - 25.f);
+    m_retryButton.setOrigin(m_retryButton.getLocalBounds().width / 2,
+                            m_retryButton.getLocalBounds().height / 2);
+    m_retryButton.setPosition(m_context->m_window->getSize().x / 2,
+                              m_context->m_window->getSize().y / 2 - 25.f);
     m_retryButton.setCharacterSize(20);
 
-    //Exit button
+    // Exit Button
     m_exitButton.setFont(m_context->m_assets->GetFont(MAIN_FONT));
     m_exitButton.setString("Exit");
-    m_exitButton.setOrigin(m_exitButton.getLocalBounds().width / 2, m_exitButton.getLocalBounds().height / 2);
-    m_exitButton.setPosition(m_context->m_window->getSize().x / 2, m_context->m_window->getSize().y / 2 + 25.f);
+    m_exitButton.setOrigin(m_exitButton.getLocalBounds().width / 2,
+                           m_exitButton.getLocalBounds().height / 2);
+    m_exitButton.setPosition(m_context->m_window->getSize().x / 2,
+                             m_context->m_window->getSize().y / 2 + 25.f);
     m_exitButton.setCharacterSize(20);
 }
 
@@ -57,11 +60,11 @@ void GameOver::ProcessInput()
             {
                 if (!m_isRetryButtonSelected)
                 {
-                     m_isRetryButtonSelected = true;
-            }
+                    m_isRetryButtonSelected = true;
                     m_isExitButtonSelected = false;
                 }
                 break;
+            }
             case sf::Keyboard::Down:
             {
                 if (!m_isExitButtonSelected)
@@ -70,24 +73,23 @@ void GameOver::ProcessInput()
                     m_isExitButtonSelected = true;
                 }
                 break;
-
             }
             case sf::Keyboard::Return:
             {
                 m_isRetryButtonPressed = false;
                 m_isExitButtonPressed = false;
 
-                if (m_isRetryButtonSelected) 
+                if (m_isRetryButtonSelected)
                 {
                     m_isRetryButtonPressed = true;
                 }
-                else {
+                else
+                {
                     m_isExitButtonPressed = true;
                 }
+
                 break;
-
             }
-
             default:
             {
                 break;
@@ -99,22 +101,22 @@ void GameOver::ProcessInput()
 
 void GameOver::Update(sf::Time deltaTime)
 {
-    if(m_isRetryButtonSelected)
+    if (m_isRetryButtonSelected)
     {
         m_retryButton.setFillColor(sf::Color::Black);
         m_exitButton.setFillColor(sf::Color::White);
     }
-    else {
+    else
+    {
         m_exitButton.setFillColor(sf::Color::Black);
         m_retryButton.setFillColor(sf::Color::White);
     }
 
-    if(m_isRetryButtonPressed)
+    if (m_isRetryButtonPressed)
     {
-        // go to play state
         m_context->m_states->Add(std::make_unique<GamePlay>(m_context), true);
     }
-    else if (m_isExitButtonPressed) 
+    else if (m_isExitButtonPressed)
     {
         m_context->m_window->close();
     }
