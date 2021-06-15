@@ -44,6 +44,7 @@ public:
 
   <p>No trecho acima, observamos a linha em que incluímos a biblioteca stack da linguagem C++, a qual conta com métodos nativos para a implementação de pilhas, sempre  mantendo o aspecto LIFO(Last In First Out) da estrutura.
 </p>
+
 ```cpp
 #include <stack>
 ```
