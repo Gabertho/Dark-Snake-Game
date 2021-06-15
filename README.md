@@ -1,5 +1,6 @@
 # ProjetoAED1
 Jogo produzido em C++ para a disciplina de Algoritmos e Estruturas de Dados I da Universidade Federal de São Carlos(UFSCar), utilizando a biblioteca SFML.
+<p> O jogo se baseia em uma releitura do famoso jogo SNAKE, utilizando texturas e ambientações mais "pesadas", sendo entitulado "Dark Snake". </p>
 
 
 ## ESTRUTURAÇÃO
