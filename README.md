@@ -130,3 +130,126 @@ std::unique_ptr<Engine::State> &Engine::StateMan::GetCurrent()
     <p> a) No primeiro caso, vemos que a pilha não está vazia e m_remove é verdadeiro, ou seja, devemos desempilhar o estado do topo. Para isso, utilizamos o método pop() presente na biblioteca Stack e posteriormente transicionamos o jogo para o novo topo utilizando o método Start() da biblioteca SFML. </p>
     <p> b) No segundo caso, vemos que é necessário empilhar um estado no jogo, e com isso verificamos se é necessário substituir o topo da pilha ou não. Depois, verificamos se a pilha está vazia e pausamos o estado do topo para que possamos adicionar um novo estado, o qual passa a ser o novo topo, o qual é inicializado com os métodos Init() e Start() da biblioteca SFML. </p>
  <p> No método GetCurrent, retornamos uma referência para o topo da pilha(estado atual do jogo).</p>
+
+ ### Lista Encadeada Circular
+
+ <p> Para a elaboração da cobra, utilizamos um Tipo de Dado Abstrato lista encadeada, pois cada porção do corpo da cobra é um item desta lista. Dessa forma, o fim da lista sempre será a cabeça da cobra(um iterador do método `list`), seu corpo são os itens da lista como um todo(usamos o método `list` tendo como itens `Sprites` uma classe da biblioteca gráfica responsável por desenhos que podem ser alterados ao longo do tempo) e seu começo sempre será a calda da cobra(um iterador do método `list`). Para tal criamos um classe cobra que abriga os métodos de criação da cobra e seus métodos de movimento.
+ Para tal criamos um cabeçalho que inclue a biblioteca `<list>` da qual usaremos o TAD lista. Além disso, adicionamos os demais cabeçalhos necessários que fazem parte da biblioteca gráfica `SFML`. Dentro do cabeçalho declaramos os métods que são responsáveis pela criação da cobra e sua movimentação.<p>
+ ```cpp
+ #pragma once
+
+#include <list>
+
+#include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/RenderStates.hpp>
+
+class Snake : public sf::Drawable
+{
+private:
+    std::list<sf::Sprite> m_body;
+    std::list<sf::Sprite>::iterator m_head;
+    std::list<sf::Sprite>::iterator m_tail;
+
+public:
+    Snake();
+    ~Snake();
+
+    void Init(const sf::Texture &texture);
+    void Move(const sf::Vector2f &direction);
+    bool IsOn(const sf::Sprite &other) const;
+    void Grow(const sf::Vector2f &direction);
+    bool IsSelfIntersecting() const;
+
+    void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+};
+```
+Agora, dentro da unidade de software dos métods da cobra temos o cabeçalho declarado apenas. Como construtor inicilizamos a cabeça como o final da lista e a cauda como o começo. A cabeça é inicilizada com um decremento, pois neste estado a lista ainda está vazia. O destrutor é vazio(padrão).
+```cpp
+#include "Snake.hpp"
+
+Snake::Snake() : m_body(std::list<sf::Sprite>(4))
+{
+    m_head = --m_body.end();
+    m_tail = m_body.begin();
+}
+
+Snake::~Snake()
+{
+}
+```
+
+O método `Init` fica responsável por dar início a cobra, colocando seu tamanho conforme a proporção do mapa e iniciando sua textura através de métodos da biblioteca gráfica.
+```cpp
+void Snake::Init(const sf::Texture &texture)
+{
+    float x = 16.f;
+    for (auto &piece : m_body)
+    {
+        piece.setTexture(texture);
+        piece.setPosition({x, 16.f});
+        x += 16.f;
+    }
+}
+```
+
+O método `Move` cuida do movimento da cobra, atualizando o valor da cauda para frente da cabeça, isso cria a sensação de movimento do personagem. Incrementa-se a cauda e caso ela esteja na posição da cabeça reinicia-se sua posição.
+```cpp
+void Snake::Move(const sf::Vector2f &direction)
+{
+    m_tail->setPosition(m_head->getPosition() + direction);
+    m_head = m_tail;
+    ++m_tail;
+
+    if (m_tail == m_body.end())
+    {
+        m_tail = m_body.begin();
+    }
+}
+```
+Os métodos `IsOn`, `Grow` e `IsSelfIntersecting` verificação se a cobra está tocando os limites do mapa, deve crescer, pois está sobre uma comida e se a cobra encostou em si mesma, respectivamente.
+``` cpp
+void Snake::Grow(const sf::Vector2f &direction)
+{
+    sf::Sprite newPiece;
+    newPiece.setTexture(*(m_body.begin()->getTexture()));
+    newPiece.setPosition(m_head->getPosition() + direction);
+
+    m_head = m_body.insert(++m_head, newPiece);
+}
+
+bool Snake::IsSelfIntersecting() const
+{
+    bool flag = false;
+
+    for (auto piece = m_body.begin(); piece != m_body.end(); ++piece)
+    {
+        if (m_head != piece)
+        {
+            flag = IsOn(*piece);
+
+            if (flag)
+            {
+                break;
+            }
+        }
+    }
+
+    return flag;
+}
+```
+O método fica responsável pelo desenho do corpo da cobra pelo mapa.
+```cpp
+void Snake::draw(sf::RenderTarget &target, sf::RenderStates states) const
+{
+    for (auto &piece : m_body)
+    {
+        target.draw(piece);
+    }
+}
+```
+
+
+
