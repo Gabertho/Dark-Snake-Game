@@ -10,7 +10,7 @@
 GamePlay::GamePlay(std::shared_ptr<Context> &context)
     : m_context(context),
       m_score(0),
-      m_snakeDirection({16.f, 0.f}),
+      m_snakeDirection({32.f, 0.f}),
       m_elapsedTime(sf::Time::Zero),
       m_isPaused(false)
 {
@@ -23,10 +23,10 @@ GamePlay::~GamePlay()
 
 void GamePlay::Init()
 {
-    m_context->m_assets->AddTexture(GRASS, "assets/textures/grass.png", true);
-    m_context->m_assets->AddTexture(FOOD, "assets/textures/food.png");
-    m_context->m_assets->AddTexture(WALL, "assets/textures/wall.png", true);
-    m_context->m_assets->AddTexture(SNAKE, "assets/textures/snake.png");
+    m_context->m_assets->AddTexture(GRASS, "assets/textures/mapa32.jpg", true);
+    m_context->m_assets->AddTexture(FOOD, "assets/textures/comida32.jpg");
+    m_context->m_assets->AddTexture(WALL, "assets/textures/muro32.jpg", true);
+    m_context->m_assets->AddTexture(SNAKE, "assets/textures/corpo32.jpg");
 
     m_grass.setTexture(m_context->m_assets->GetTexture(GRASS));
     m_grass.setTextureRect(m_context->m_window->getViewport(m_context->m_window->getDefaultView()));
@@ -36,13 +36,13 @@ void GamePlay::Init()
         wall.setTexture(m_context->m_assets->GetTexture(WALL));
     }
 
-    m_walls[0].setTextureRect({0, 0, (int)m_context->m_window->getSize().x, 16});
-    m_walls[1].setTextureRect({0, 0, (int)m_context->m_window->getSize().x, 16});
-    m_walls[1].setPosition(0, m_context->m_window->getSize().y - 16);
+    m_walls[0].setTextureRect({0, 0, (int)m_context->m_window->getSize().x, 32});
+    m_walls[1].setTextureRect({0, 0, (int)m_context->m_window->getSize().x, 32});
+    m_walls[1].setPosition(0, m_context->m_window->getSize().y - 32);
 
-    m_walls[2].setTextureRect({0, 0, 16, (int)m_context->m_window->getSize().y});
-    m_walls[3].setTextureRect({0, 0, 16, (int)m_context->m_window->getSize().y});
-    m_walls[3].setPosition(m_context->m_window->getSize().x - 16, 0);
+    m_walls[2].setTextureRect({0, 0, 32, (int)m_context->m_window->getSize().y});
+    m_walls[3].setTextureRect({0, 0, 32, (int)m_context->m_window->getSize().y});
+    m_walls[3].setPosition(m_context->m_window->getSize().x - 32, 0);
 
     m_food.setTexture(m_context->m_assets->GetTexture(FOOD));
     m_food.setPosition(m_context->m_window->getSize().x / 2, m_context->m_window->getSize().y / 2);
@@ -69,16 +69,16 @@ void GamePlay::ProcessInput()
             switch (event.key.code)
             {
             case sf::Keyboard::Up:
-                newDirection = {0.f, -16.f};
+                newDirection = {0.f, -32.f};
                 break;
             case sf::Keyboard::Down:
-                newDirection = {0.f, 16.f};
+                newDirection = {0.f, 32.f};
                 break;
             case sf::Keyboard::Left:
-                newDirection = {-16.f, 0.f};
+                newDirection = {-32.f, 0.f};
                 break;
             case sf::Keyboard::Right:
-                newDirection = {16.f, 0.f};
+                newDirection = {32.f, 0.f};
                 break;
             case sf::Keyboard::Escape:
                 m_context->m_states->Add(std::make_unique<PauseGame>(m_context));
@@ -119,8 +119,8 @@ void GamePlay::Update(sf::Time deltaTime)
                 m_snake.Grow(m_snakeDirection);
 
                 int x = 0, y = 0;
-                x = std::clamp<int>(rand() % m_context->m_window->getSize().x, 16, m_context->m_window->getSize().x - 2 * 16);
-                y = std::clamp<int>(rand() % m_context->m_window->getSize().y, 16, m_context->m_window->getSize().y - 2 * 16);
+                x = std::clamp<int>(rand() % m_context->m_window->getSize().x, 32, m_context->m_window->getSize().x - 2 * 32);
+                y = std::clamp<int>(rand() % m_context->m_window->getSize().y, 32, m_context->m_window->getSize().y - 2 * 32);
 
                 m_food.setPosition(x, y);
                 m_score += 1;
