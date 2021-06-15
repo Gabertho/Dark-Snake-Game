@@ -122,7 +122,7 @@ std::unique_ptr<Engine::State> &Engine::StateMan::GetCurrent()
   <p> No construtor, observamos a inicialização dos atributos privados. </p>
   <p> No método add, observamos o uso do método move para empilhar o novo estado recebido como parâmetro. </p>
   <p> No método PopCurrent, setamos o valor da variável boolean m_remove como verdadeiro, pois estamos desempilhando o topo. </p>
-  <p> No método ProcessStateChange, fazemos uma verificação com estruturas condicionais para verificar como a pilha deve se comportar.  </p>
+  <p> No método ProcessStateChange, fazemos uma verificação com estruturas condicionais para verificar como a pilha deve se comportar nos casos listados a seguir:  </p>
     <p> a) No primeiro caso, vemos que a pilha não está vazia e m_remove é verdadeiro, ou seja, devemos desempilhar o estado do topo. Para isso, utilizamos o método pop() presente na biblioteca Stack e posteriormente transicionamos o jogo para o novo topo utilizando o método Start() da biblioteca SFML. </p>
     <p> b) No segundo caso, vemos que é necessário empilhar um estado no jogo, e com isso verificamos se é necessário substituir o topo da pilha ou não. Depois, verificamos se a pilha está vazia e pausamos o estado do topo para que possamos adicionar um novo estado, o qual passa a ser o novo topo, o qual é inicializado com os métodos Init() e Start() da biblioteca SFML. </p>
  <p> No método GetCurrent, retornamos uma referência para o topo da pilha(estado atual do jogo).</p>
