@@ -6,7 +6,9 @@ Jogo produzido em C++ para a disciplina de Algoritmos e Estruturas de Dados I da
 <p>No nosso projeto, utilizamos dois Tipos Abstratos de Dados(TAD) aprendidos na disciplina de Algoritmos e Estruturas de Dados I: Pilha(Stack) e Lista(Linked List).
 Nesse contexto, destacamos a implementação e uso das referidas estruturas:
 </p>
+
 ### PILHA
+
 ```cpp
 #pragma once
 
