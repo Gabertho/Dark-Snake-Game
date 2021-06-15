@@ -135,8 +135,8 @@ std::unique_ptr<Engine::State> &Engine::StateMan::GetCurrent()
 
  <p> Para a elaboração da cobra, utilizamos um Tipo de Dado Abstrato lista encadeada, pois cada porção do corpo da cobra é um item desta lista. Dessa forma, o fim da lista sempre será a cabeça da cobra(um iterador do método `list`), seu corpo são os itens da lista como um todo(usamos o método `list` tendo como itens `Sprites` uma classe da biblioteca gráfica responsável por desenhos que podem ser alterados ao longo do tempo) e seu começo sempre será a calda da cobra(um iterador do método `list`). Para tal criamos um classe cobra que abriga os métodos de criação da cobra e seus métodos de movimento.
  Para tal criamos um cabeçalho que inclue a biblioteca `<list>` da qual usaremos o TAD lista. Além disso, adicionamos os demais cabeçalhos necessários que fazem parte da biblioteca gráfica `SFML`. Dentro do cabeçalho declaramos os métods que são responsáveis pela criação da cobra e sua movimentação.<p>
- ```cpp
- #pragma once
+```cpp
+#pragma once
 
 #include <list>
 
@@ -166,7 +166,7 @@ public:
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };
 ```
-Agora, dentro da unidade de software dos métods da cobra temos o cabeçalho declarado apenas. Como construtor inicilizamos a cabeça como o final da lista e a cauda como o começo. A cabeça é inicilizada com um decremento, pois neste estado a lista ainda está vazia. O destrutor é vazio(padrão).
+<p> Agora, dentro da unidade de software dos métods da cobra temos o cabeçalho declarado apenas. Como construtor inicilizamos a cabeça como o final da lista e a cauda como o começo. A cabeça é inicilizada com um decremento, pois neste estado a lista ainda está vazia. O destrutor é vazio(padrão).<p>
 ```cpp
 #include "Snake.hpp"
 
