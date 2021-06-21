@@ -1,7 +1,7 @@
 #pragma once
 
 #include <memory>
-
+#include <vector>
 #include <SFML/Graphics/RenderWindow.hpp>
 
 #include "AssetMan.hpp"
@@ -13,6 +13,18 @@ enum AssetID
     GRASS,
     FOOD,
     WALL,
+    BODY_UP, 
+    HEAD_UP, 
+    TAIL_UP,
+    BODY_DOWN, 
+    HEAD_DOWN, 
+    TAIL_DOWN,
+    BODY_RIGHT, 
+    HEAD_RIGHT, 
+    TAIL_RIGHT,
+    BODY_LEFT, 
+    HEAD_LEFT, 
+    TAIL_LEFT,
     SNAKE
 };
 

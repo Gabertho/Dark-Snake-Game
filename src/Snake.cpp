@@ -4,26 +4,29 @@ Snake::Snake() : m_body(std::list<sf::Sprite>(4))
 {
     m_head = --m_body.end();
     m_tail = m_body.begin();
+    previously_direction = {64.f, 0.f};
 }
 
 Snake::~Snake()
 {
 }
 
-void Snake::Init(const sf::Texture &texture)
+void Snake::Init(const sf::Texture &texture_tail, const sf::Texture &texture_body, const sf::Texture &texture_head )
 {
-    float x = 32.f;
+    float x = 128.f;
     for (auto &piece : m_body)
-    {
-        piece.setTexture(texture);
-        piece.setPosition({x, 32.f});
-        x += 32.f;
+    {   
+        piece.setTexture(texture_body);
+        piece.setPosition({x, 128.f});
+        x += 64.f;
     }
+    m_tail->setTexture(texture_tail);
+    m_head->setTexture(texture_head);
 }
 
-void Snake::Move(const sf::Vector2f &direction)
-{
-    m_tail->setPosition(m_head->getPosition() + direction);
+void Snake::Move(const sf::Vector2f &direction, const sf::Texture &texture_tail, const sf::Texture &texture_body, const sf::Texture &texture_head)
+{   
+    m_tail->setPosition(m_head->getPosition() + direction);    
     m_head = m_tail;
     ++m_tail;
 
@@ -31,6 +34,12 @@ void Snake::Move(const sf::Vector2f &direction)
     {
         m_tail = m_body.begin();
     }
+    for (auto &piece : m_body)
+    {   
+        piece.setTexture(texture_body);
+    }
+    m_tail->setTexture(texture_tail);
+    m_head->setTexture(texture_head);
 }
 
 bool Snake::IsOn(const sf::Sprite &other) const
