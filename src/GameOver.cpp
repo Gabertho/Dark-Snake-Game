@@ -129,4 +129,5 @@ void GameOver::Draw()
     m_context->m_window->draw(m_retryButton);
     m_context->m_window->draw(m_exitButton);
     m_context->m_window->display();
+    
 }
