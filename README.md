@@ -3,9 +3,11 @@ Jogo produzido em C++ para a disciplina de Algoritmos e Estruturas de Dados I da
 <p> O jogo se baseia em uma releitura do famoso jogo SNAKE, utilizando texturas e ambientações mais "pesadas", sendo entitulado "Dark Snake". </p>
 
 ## Desenvolvedores
-<a href="https://linkedin.com/in/gabriel-andreazi-bertho-3671241a6/" alt="Linkedin">
+<a href="https://github.com/Gabertho" alt="Github">
 <p> Gabriel Bertho </p>
-<p> Carlos Eduardo Fontanelli </pP
+    
+<a href="https://github.com/CarlosFontaneli" alt="Github">
+<p> Carlos Eduardo Fontaneli </p></a>
 
 
 ## ESTRUTURAÇÃO
