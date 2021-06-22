@@ -26,7 +26,7 @@ GamePlay::~GamePlay()
 void GamePlay::Init()
 {
     m_context->m_assets->AddTexture(GRASS, "assets/textures/map.jpg", true);
-    m_context->m_assets->AddTexture(OBSTACLE, "assets/textures/bomba.png");
+    m_context->m_assets->AddTexture(OBSTACLE, "assets/textures/bomba.jpg");
     m_context->m_assets->AddTexture(FOOD, "assets/textures/food.jpg");
     m_context->m_assets->AddTexture(WALL, "assets/textures/wall.jpg", true);
     m_context->m_assets->AddTexture(BODY_UP, "assets/textures/body_up.jpg");
@@ -123,7 +123,7 @@ void GamePlay::Update(sf::Time deltaTime)
     {
         m_elapsedTime += deltaTime;
 
-        if (m_elapsedTime.asSeconds() > 0.2)
+        if (m_elapsedTime.asSeconds() > 0.1)
         {
 
             for (auto &wall : m_walls)
@@ -142,7 +142,7 @@ void GamePlay::Update(sf::Time deltaTime)
             {
                 SoundManager sound;
                 sound.playSound(3);
-                sleep(sf::milliseconds(420));
+                //sleep(sf::milliseconds(420));
                 
                 m_snake.Degrow(m_snakeDirection);
 
@@ -169,7 +169,7 @@ void GamePlay::Update(sf::Time deltaTime)
                     m_context->m_states->Add(std::make_unique<GameOver>(m_context), true);
                     SoundManager sound;
                     sound.playSound(1);
-                    sleep(sf::seconds(3));
+                    //sleep(sf::seconds(3));
                 }
                 m_scoreText.setString("Score : " + std::to_string(m_score));
     
@@ -181,7 +181,7 @@ void GamePlay::Update(sf::Time deltaTime)
             {
                 SoundManager sound;
                 sound.playSound(4);
-                sleep(sf::milliseconds(500));
+                //sleep(sf::milliseconds(500));
                 m_snake.Grow(m_snakeDirection);
 
                 int x = 0, y = 0;
