@@ -3,6 +3,7 @@
 #include <memory>
 
 #include <SFML/Graphics/Text.hpp>
+#include <SFML/Graphics/Sprite.hpp>
 
 #include "State.hpp"
 #include "Game.hpp"
@@ -14,6 +15,7 @@ private:
     sf::Text m_gameOverTitle;
     sf::Text m_retryButton;
     sf::Text m_exitButton;
+    sf::Sprite m_background;
 
     bool m_isRetryButtonSelected;
     bool m_isRetryButtonPressed;

@@ -16,31 +16,38 @@ GameOver::~GameOver()
 
 void GameOver::Init()
 {
+    //Background
+    m_context->m_assets->AddTexture(GAMEOVER, "assets/textures/gameover.png");
+    sf::Texture background;
+    m_background.setTexture(m_context->m_assets->GetTexture(GAMEOVER));
+    m_background.setPosition(0,0);
+    
     // Title
-    m_gameOverTitle.setFont(m_context->m_assets->GetFont(MAIN_FONT));
+    m_gameOverTitle.setFont(m_context->m_assets->GetFont(TITLE));
     m_gameOverTitle.setString("Game Over");
     m_gameOverTitle.setOrigin(m_gameOverTitle.getLocalBounds().width / 2,
-                              m_gameOverTitle.getLocalBounds().height / 2);
-    m_gameOverTitle.setPosition(m_context->m_window->getSize().x / 2,
-                                m_context->m_window->getSize().y / 2 - 150.f);
+                          m_gameOverTitle.getLocalBounds().height / 2);
+    m_gameOverTitle.setPosition(m_context->m_window->getSize().x / 3.2,
+                            m_context->m_window->getSize().y / 2 - 400.f);
+    m_gameOverTitle.setCharacterSize(200);;
 
     // Play Button
     m_retryButton.setFont(m_context->m_assets->GetFont(MAIN_FONT));
     m_retryButton.setString("Retry");
     m_retryButton.setOrigin(m_retryButton.getLocalBounds().width / 2,
                             m_retryButton.getLocalBounds().height / 2);
-    m_retryButton.setPosition(m_context->m_window->getSize().x / 2,
-                              m_context->m_window->getSize().y / 2 - 25.f);
-    m_retryButton.setCharacterSize(20);
+    m_retryButton.setPosition(m_context->m_window->getSize().x / 2.2,
+                              m_context->m_window->getSize().y / 2 - 50.f);
+    m_retryButton.setCharacterSize(100);
 
     // Exit Button
     m_exitButton.setFont(m_context->m_assets->GetFont(MAIN_FONT));
     m_exitButton.setString("Exit");
     m_exitButton.setOrigin(m_exitButton.getLocalBounds().width / 2,
                            m_exitButton.getLocalBounds().height / 2);
-    m_exitButton.setPosition(m_context->m_window->getSize().x / 2,
-                             m_context->m_window->getSize().y / 2 + 25.f);
-    m_exitButton.setCharacterSize(20);
+    m_exitButton.setPosition(m_context->m_window->getSize().x / 2.2,
+                             m_context->m_window->getSize().y / 2 + 100.f);
+    m_exitButton.setCharacterSize(100);
 }
 
 void GameOver::ProcessInput()
@@ -103,13 +110,13 @@ void GameOver::Update(sf::Time deltaTime)
 {
     if (m_isRetryButtonSelected)
     {
-        m_retryButton.setFillColor(sf::Color::Black);
-        m_exitButton.setFillColor(sf::Color::White);
+        m_retryButton.setFillColor(sf::Color::Red);
+        m_exitButton.setFillColor(sf::Color::Black);
     }
     else
     {
-        m_exitButton.setFillColor(sf::Color::Black);
-        m_retryButton.setFillColor(sf::Color::White);
+        m_exitButton.setFillColor(sf::Color::Red);
+        m_retryButton.setFillColor(sf::Color::Black);
     }
 
     if (m_isRetryButtonPressed)
@@ -124,7 +131,7 @@ void GameOver::Update(sf::Time deltaTime)
 
 void GameOver::Draw()
 {
-    m_context->m_window->clear(sf::Color::Blue);
+    m_context->m_window->draw(m_background);
     m_context->m_window->draw(m_gameOverTitle);
     m_context->m_window->draw(m_retryButton);
     m_context->m_window->draw(m_exitButton);

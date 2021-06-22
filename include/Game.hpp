@@ -10,6 +10,7 @@
 enum AssetID
 {
     MAIN_FONT = 0,
+    TITLE,
     GRASS,
     OBSTACLE,
     FOOD,
@@ -26,7 +27,9 @@ enum AssetID
     BODY_LEFT, 
     HEAD_LEFT, 
     TAIL_LEFT,
-    SNAKE
+    SNAKE,
+    BACKGROUND,
+    GAMEOVER
 };
 
 struct Context

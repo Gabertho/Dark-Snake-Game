@@ -3,6 +3,7 @@
 #include <memory>
 
 #include <SFML/Graphics/Text.hpp>
+#include <SFML/Graphics/Sprite.hpp>
 
 #include "State.hpp"
 #include "Game.hpp"
@@ -14,6 +15,7 @@ private:
     sf::Text m_gameTitle;
     sf::Text m_playButton;
     sf::Text m_exitButton;
+    sf::Sprite s_background;
 
     bool m_isPlayButtonSelected;
     bool m_isPlayButtonPressed;
