@@ -2,6 +2,11 @@
 Jogo produzido em C++ para a disciplina de Algoritmos e Estruturas de Dados I da Universidade Federal de São Carlos(UFSCar), utilizando a biblioteca SFML.
 <p> O jogo se baseia em uma releitura do famoso jogo SNAKE, utilizando texturas e ambientações mais "pesadas", sendo entitulado "Dark Snake". </p>
 
+## Desenvolvedores
+<a href="https://linkedin.com/in/gabriel-andreazi-bertho-3671241a6/" alt="Linkedin">
+<p> Gabriel Bertho </p>
+<p> Carlos Eduardo Fontanelli </pP
+
 
 ## ESTRUTURAÇÃO
 <p>No nosso projeto, utilizamos dois Tipos Abstratos de Dados(TAD) aprendidos na disciplina de Algoritmos e Estruturas de Dados I: Pilha(Stack) e Lista(Linked List).
