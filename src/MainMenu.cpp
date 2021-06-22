@@ -129,13 +129,13 @@ void MainMenu::Update(sf::Time deltaTime)
 {
     if(m_isPlayButtonSelected)
     {
-        m_playButton.setFillColor(sf::Color::Black);
-        m_exitButton.setFillColor(sf::Color::White);
+        m_playButton.setFillColor(sf::Color::White);
+        m_exitButton.setFillColor(sf::Color::Black);
     }
     else
     {
-        m_exitButton.setFillColor(sf::Color::Black);
-        m_playButton.setFillColor(sf::Color::White);
+        m_exitButton.setFillColor(sf::Color::White);
+        m_playButton.setFillColor(sf::Color::Black);
     }
     
     if(m_isPlayButtonPressed)
