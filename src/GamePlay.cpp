@@ -1,5 +1,7 @@
 #include "GamePlay.hpp"
 #include "GameOver.hpp"
+#include <SFML/Audio.hpp>
+#include "SoundManager.hpp"
 #include "PauseGame.hpp"
 
 #include <SFML/Window/Event.hpp>
@@ -24,6 +26,7 @@ GamePlay::~GamePlay()
 void GamePlay::Init()
 {
     m_context->m_assets->AddTexture(GRASS, "assets/textures/map.jpg", true);
+    m_context->m_assets->AddTexture(OBSTACLE, "assets/textures/bomba.png");
     m_context->m_assets->AddTexture(FOOD, "assets/textures/food.jpg");
     m_context->m_assets->AddTexture(WALL, "assets/textures/wall.jpg", true);
     m_context->m_assets->AddTexture(BODY_UP, "assets/textures/body_up.jpg");
@@ -58,6 +61,9 @@ void GamePlay::Init()
     m_food.setTexture(m_context->m_assets->GetTexture(FOOD));
     m_food.setPosition(m_context->m_window->getSize().x / 2, m_context->m_window->getSize().y / 2);
 
+    m_obstacle.setTexture(m_context->m_assets->GetTexture(OBSTACLE));
+    m_obstacle.setPosition(m_context->m_window->getSize().x / 3, m_context->m_window->getSize().y / 2);
+
     m_snake.Init(m_context->m_assets->GetTexture(TAIL_RIGHT), m_context->m_assets->GetTexture(BODY_RIGHT), m_context->m_assets->GetTexture(HEAD_RIGHT));
 
 
@@ -65,7 +71,6 @@ void GamePlay::Init()
     m_scoreText.setString("Score : " + std::to_string(m_score));
     m_scoreText.setCharacterSize(15);
 }
-
 
 void GamePlay::ProcessInput()
 {
@@ -110,25 +115,73 @@ void GamePlay::ProcessInput()
     }
 }
 
+
+
 void GamePlay::Update(sf::Time deltaTime)
 {
     if(!m_isPaused)
     {
         m_elapsedTime += deltaTime;
 
-        if (m_elapsedTime.asSeconds() > 0.1)
+        if (m_elapsedTime.asSeconds() > 0.2)
         {
+
             for (auto &wall : m_walls)
             {
                 if (m_snake.IsOn(wall))
                 {
                     m_context->m_states->Add(std::make_unique<GameOver>(m_context), true);
+                    SoundManager sound;
+                    sound.playSound(1);
+                    sleep(sf::seconds(3));
                     break;
                 }
             }
 
+            if (m_snake.IsOn(m_obstacle))
+            {
+                SoundManager sound;
+                sound.playSound(3);
+                sleep(sf::milliseconds(420));
+                
+                m_snake.Degrow(m_snakeDirection);
+
+                int x = 0, y = 0;
+
+                x = std::clamp<int>(rand() % m_context->m_window->getSize().x, 64, m_context->m_window->getSize().x - 2 * 64);
+                y = std::clamp<int>(rand() % m_context->m_window->getSize().y, 64, m_context->m_window->getSize().y - 2 * 64);
+
+                m_obstacle.setPosition(x, y);
+                
+                while(m_obstacle.getPosition() == m_food.getPosition())
+                {
+                    x = std::clamp<int>(rand() % m_context->m_window->getSize().x, 64, m_context->m_window->getSize().x - 2 * 64);
+                    y = std::clamp<int>(rand() % m_context->m_window->getSize().y, 64, m_context->m_window->getSize().y - 2 * 64);
+
+
+                }
+
+                 m_obstacle.setPosition(x, y);
+
+                m_score -= 1;
+                if(m_score == -1)
+                {
+                    m_context->m_states->Add(std::make_unique<GameOver>(m_context), true);
+                    SoundManager sound;
+                    sound.playSound(1);
+                    sleep(sf::seconds(3));
+                }
+                m_scoreText.setString("Score : " + std::to_string(m_score));
+    
+            }
+
+
+
             if (m_snake.IsOn(m_food))
             {
+                SoundManager sound;
+                sound.playSound(4);
+                sleep(sf::milliseconds(500));
                 m_snake.Grow(m_snakeDirection);
 
                 int x = 0, y = 0;
@@ -156,10 +209,14 @@ void GamePlay::Update(sf::Time deltaTime)
             if (m_snake.IsSelfIntersecting())
             {
                 m_context->m_states->Add(std::make_unique<GameOver>(m_context), true);
+                SoundManager sound;
+                sound.playSound(1);
+                sleep(sf::seconds(3));
             }
 
             m_elapsedTime = sf::Time::Zero;
         }
+
     }
 }
 
@@ -174,9 +231,11 @@ void GamePlay::Draw()
     }
     m_context->m_window->draw(m_food);
     m_context->m_window->draw(m_snake);
+    m_context->m_window->draw(m_obstacle);
     m_context->m_window->draw(m_scoreText);
 
     m_context->m_window->display();
+
 }
 
 void GamePlay::Pause()

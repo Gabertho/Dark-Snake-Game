@@ -21,6 +21,8 @@ private:
     bool m_isExitButtonSelected;
     bool m_isExitButtonPressed;
 
+    static bool m_isPlaying;
+
 public:
     MainMenu(std::shared_ptr<Context> &context);
     ~MainMenu();
@@ -29,4 +31,5 @@ public:
     void ProcessInput() override;
     void Update(sf::Time deltaTime) override;
     void Draw() override;
+    static void Music();
 };

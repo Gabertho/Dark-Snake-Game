@@ -1,4 +1,6 @@
 #include "Snake.hpp"
+#include <list>
+#include <iostream>
 
 Snake::Snake() : m_body(std::list<sf::Sprite>(4))
 {
@@ -54,6 +56,19 @@ void Snake::Grow(const sf::Vector2f &direction)
     newPiece.setPosition(m_head->getPosition() + direction);
 
     m_head = m_body.insert(++m_head, newPiece);
+}
+
+void Snake::Degrow(const sf::Vector2f &direction)
+{
+    sf::Sprite Piece;
+    Piece.setPosition(m_head->getPosition());
+   for (std::list<sf::Sprite>::iterator it = m_body.begin(); it != m_body.end(); )
+{
+    if ((*it).getPosition() == Piece.getPosition())
+        it = m_body.erase(it);
+    else
+        ++it;
+}
 }
 
 bool Snake::IsSelfIntersecting() const

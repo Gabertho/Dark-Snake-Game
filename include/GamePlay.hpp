@@ -16,6 +16,7 @@ private:
     std::shared_ptr<Context> m_context;
     sf::Sprite m_grass;
     sf::Sprite m_food;
+    sf::Sprite m_obstacle;
     std::array<sf::Sprite, 4> m_walls;
     Snake m_snake;
 
@@ -37,4 +38,6 @@ public:
     void Draw() override;
     void Pause() override;
     void Start() override;
+    void Timer();
+    sf::Time getTimer(sf::Clock &clock);
 };

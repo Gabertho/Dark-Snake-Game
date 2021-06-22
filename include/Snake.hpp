@@ -24,6 +24,7 @@ public:
     void Move(const sf::Vector2f &direction, const sf::Texture &texture_tail, const sf::Texture &texture_body, const sf::Texture &texture_head);
     bool IsOn(const sf::Sprite &other) const;
     void Grow(const sf::Vector2f &direction);
+    void Degrow(const sf::Vector2f &direction);
     bool IsSelfIntersecting() const;
 
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;

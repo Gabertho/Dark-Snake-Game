@@ -1,17 +1,32 @@
 #include "MainMenu.hpp"
 #include "GamePlay.hpp"
+#include "SoundManager.hpp"
 
 #include <SFML/Window/Event.hpp>
+#include <SFML/Audio.hpp>
+
+bool MainMenu::m_isPlaying = false;
 
 MainMenu::MainMenu(std::shared_ptr<Context> &context)
     : m_context(context), m_isPlayButtonSelected(true),
       m_isPlayButtonPressed(false), m_isExitButtonSelected(false),
       m_isExitButtonPressed(false)
+      
 {
 }
 
 MainMenu::~MainMenu()
 {
+}
+
+void MainMenu::Music()
+{
+    if(!m_isPlaying)
+    {
+    SoundManager sound;
+    sound.playSound(0);
+    m_isPlaying = true; 
+    }  
 }
 
 void MainMenu::Init()
@@ -132,4 +147,5 @@ void MainMenu::Draw()
     m_context->m_window->draw(m_playButton);
     m_context->m_window->draw(m_exitButton);
     m_context->m_window->display();
+
 }
