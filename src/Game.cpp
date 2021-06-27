@@ -6,7 +6,7 @@
 
 Game::Game() : m_context(std::make_shared<Context>())
 {
-    m_context->m_window->create(sf::VideoMode(1920, 1056), "Dark Snake Game", sf::Style::Close);
+    m_context->m_window->create(sf::VideoMode(1920, 1056), "Dark Snake Game", sf::Style::Fullscreen);
     sf::Image icon;
     icon.loadFromFile("assets/textures/icon.jpg");
     m_context->m_window->setIcon(32, 32, icon.getPixelsPtr());

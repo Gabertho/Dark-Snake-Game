@@ -1,7 +1,6 @@
 CXX		  := g++
 CXX_FLAGS := -Wall -Wextra -Wno-unused-parameter -std=c++17 -ggdb
 
-BIN		:= bin
 SRC		:= src
 INCLUDE	:= include
 LIB		:= lib
@@ -22,10 +21,12 @@ ${BIN}:
 
 run: clean all
 	clear
-	./$(BIN)/$(EXECUTABLE)
+	.$(EXECUTABLE)
 
 $(BIN)/$(EXECUTABLE): $(SRC)/*.cpp
 	$(CXX) $(CXX_FLAGS) -I$(INCLUDE) -L$(LIB) $^ -o $@ $(LIBRARIES)
 
 clean:
 	-rm $(BIN)/*
+
+
